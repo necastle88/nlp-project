@@ -1,0 +1,26 @@
+{
+  "name": "nlp-project",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000n\u0000l\u0000p\u0000-\u0000p\u0000r\u0000o\u0000j\u0000e\u0000c\u0000t\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server/index.js",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/necastle88/nlp-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/necastle88/nlp-project/issues"
+  },
+  "homepage": "https://github.com/necastle88/nlp-project#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "webpack": "^5.28.0",
+    "webpack-cli": "^4.5.0"
+  }
+}
