@@ -29,15 +29,32 @@ const postData = async (url = "", data = {}) => {
   }
 };
 
+const resetTextValue = (id) => {
+  document.getElementById(`${id}`).value = "";
+};
 
-function handleSubmit(event) {
+async function handleSubmit (event) {
   event.preventDefault();
-  postData('/data');
   // check what text was put into the form field
-  let formText = document.getElementById('form__user-input').value
-  
-
-  
+  let formText = document.getElementById('form__user-input').value;
+  await postData('/data', {formText});
+  fetchData('/data')
+  .then((res, rej) => {
+  const modifiedData = {
+    subjectivity: res.subjectivity,
+    confidence: res.confidence,
+    agreement: res.agreement,
+    sentence_list: res.sentence_list[0].text.toString()
+  }
+  return modifiedData
+})
+.then(res => {
+  resetTextValue('form__user-input');
+  console.log(res) // create elements
+  if(JSON.stringify(res) === '{}') {
+    document.getElementById('results').innerHTML = "loading...";
+  } document.getElementById('results').innerHTML = res.sentence_list;
+})
 }
 
 export { handleSubmit }

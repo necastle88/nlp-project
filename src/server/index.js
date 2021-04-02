@@ -1,3 +1,4 @@
+let data = {};
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -5,13 +6,6 @@ let path = require("path");
 const fetch = require("node-fetch");
 const express = require("express");
 const cors = require("cors");
-
-let data = {};
-
-const MeaningCloudAPI = {
-  application_key: process.env.API_KEY,
-};
-
 const app = express();
 const port = 8081;
 
@@ -21,6 +15,11 @@ app.use(express.json());
 app.use(express.static("dist"));
 
 console.log(__dirname);
+
+const addData = (req, res) => {
+    projectData.push(req.body);
+    console.log(projectData)
+}
 
 app.get("/", function (req, res) {
   res.sendFile("index.html", { root: "../../dist" });
@@ -35,6 +34,7 @@ app.get("/data", (req, res) => {
 });
 
 app.post("/data", async (req, res) => {
+
   console.log("posting data...");
 
   // Meaning Cloud API
@@ -42,7 +42,7 @@ app.post("/data", async (req, res) => {
     key: process.env.API_KEY,
     apiUrl: "https://api.meaningcloud.com/sentiment-2.1",
     lang: "en",
-    text: "some rando texts"
+    text: req.body.formText //.what ever I name it
   };
 
   const requestOptions = {
@@ -54,7 +54,8 @@ app.post("/data", async (req, res) => {
       );
   try {
     const apiData = await response.json();
-    Object.assign(data, apiData);
+    data = {...apiData}
+    console.log(data)
     res.send(data);
   } catch (error) {
     console.log("error", error);
