@@ -2,36 +2,31 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Test</title>
-        <link rel="stylesheet" href="/styles/resets.scss">
-        <link rel="stylesheet" href="/styles/base.scss">
-        <link rel="stylesheet" href="/styles/header.scss">
-        <link rel="stylesheet" href="/styles/form.scss">
-        <link rel="stylesheet" href="/styles/footer.scss">
+        <title>NLP</title>
     </head>
 
     <body>
 
         <header>
-            <div class="">
+            <div class="header_logo">
                 Logo
             </div>
-            <div class="">
+            <div class="header_nav">
                 navigation
             </div>
         </header>
 
         <main>
             <section>
-                <form class="" onsubmit="return Client.handleSubmit(event)">
-                    <textarea id="form__user-input" type="text" name="input" value="" onblur="Client.onBlur()" placeholder="Enter text here"></textarea>
+                <form class="section_form" onsubmit="return Client.handleSubmit(event)">
+                    <textarea id="form__user-input" type="text" name="input" value="" placeholder="Enter text here"></textarea>
                     <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
                 </form>
             <section>
 
             <section>
                 <strong>Form Results:</strong>
-                <div id="results"></div>
+                <div id="section_results"></div>
             </section>
         </main>
 

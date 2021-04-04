@@ -1,37 +1,6 @@
-const fetchData = async (url) => {
-  try {
-      const request = await fetch(url);
-      const data = await request.json()
-      console.log(data);
-      if (!request.ok) {
-          console.log('an error has occured');
-      } return data;
-  }
-  catch (error) {
-      console.log("error", error);
-  }
-}  
-
-const postData = async (url = "", data = {}) => {
-  const response = await fetch(url, {
-    method: "POST",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  try {
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log("error", error);
-  }
-};
-
-const resetTextValue = (id) => {
-  document.getElementById(`${id}`).value = "";
-};
+import { fetchData } from './helpers/fetchData';
+import { postData } from './helpers/postData';
+import { resetTextValue } from './helpers/resetForm';
 
 async function handleSubmit (event) {
   event.preventDefault();
@@ -40,20 +9,35 @@ async function handleSubmit (event) {
   await postData('/data', {formText});
   fetchData('/data')
   .then((res, rej) => {
-  const modifiedData = {
-    subjectivity: res.subjectivity,
-    confidence: res.confidence,
-    agreement: res.agreement,
-    sentence_list: res.sentence_list[0].text.toString()
-  }
-  return modifiedData
+    if(res.sentence_list === undefined) {
+      const modifiedData = {
+        subjectivity: 'N/A',
+        confidence: 'N/A',
+        agreement: 'N/A',
+        sentence_list: 'Enter text in the textbox to recieve results'
+      }
+      return modifiedData
+    } else {
+      const modifiedData = {
+        subjectivity: res.subjectivity,
+        confidence: res.confidence,
+        agreement: res.agreement,
+        sentence_list: res.sentence_list[0].text.toString()
+      }
+      return modifiedData
+    }
 })
 .then(res => {
   resetTextValue('form__user-input');
-  console.log(res) // create elements
-  if(JSON.stringify(res) === '{}') {
-    document.getElementById('results').innerHTML = "loading...";
-  } document.getElementById('results').innerHTML = res.sentence_list;
+  const textTitles = ['Subjectivity', 'Confidence' , 'Agreement', 'Sentence'];
+  const textList = [res.subjectivity, res.subjectivity, res.confidence, res.sentence_list];
+  const getSectionResultsID = document.getElementById('section_results');
+
+  textTitles.forEach((element, idx) => {
+    const newParagraph = document.createElement('p');
+    const getHeadingText = textList[idx];
+    return getSectionResultsID.insertAdjacentElement('beforeend', newParagraph).append(`${element}: ${getHeadingText}`); 
+  });
 })
 }
 

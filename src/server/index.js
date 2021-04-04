@@ -16,11 +16,6 @@ app.use(express.static("dist"));
 
 console.log(__dirname);
 
-const addData = (req, res) => {
-    projectData.push(req.body);
-    console.log(projectData)
-}
-
 app.get("/", function (req, res) {
   res.sendFile("index.html", { root: "../../dist" });
 });
@@ -34,8 +29,6 @@ app.get("/data", (req, res) => {
 });
 
 app.post("/data", async (req, res) => {
-
-  console.log("posting data...");
 
   // Meaning Cloud API
   const API = {
@@ -55,7 +48,6 @@ app.post("/data", async (req, res) => {
   try {
     const apiData = await response.json();
     data = {...apiData}
-    console.log(data)
     res.send(data);
   } catch (error) {
     console.log("error", error);
