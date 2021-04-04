@@ -1,7 +1,7 @@
-let json = {
+const jsonMock = {
   'title': 'test json response',
   'message': 'this is a message',
   'time': 'now'
 }
 
-module.exports = json
+export { jsonMock }

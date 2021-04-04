@@ -2,4 +2,8 @@ const resetTextValue = (id) => {
   document.getElementById(`${id}`).value = "";
 };
 
-export { resetTextValue };
+const add = (a, b) => {
+  return a + b;
+} 
+
+export { resetTextValue, add };
